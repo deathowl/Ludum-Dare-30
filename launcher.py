@@ -15,7 +15,6 @@ from pyglet.window import key
 
 from HUD import BackgroundLayer
 import soundex
-import hiscore
 
 
 class OptionsMenu( Menu ):
