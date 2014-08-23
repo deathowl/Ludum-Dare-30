@@ -59,7 +59,7 @@ class ScoreLayer( Layer ):
     def draw(self):
         super(ScoreLayer, self).draw()
         self.score.element.text = 'Score:%d' % status.score 
-        self.health.element.text = 'Health:%d' % max(0, (status.level.lines - status.lines))
+        self.health.element.text = 'Health:%d' % max(0, (status.health - status.health))
 
         lvl = status.level_idx or 0
         self.lvl.element.text = 'Lvl:%d' % lvl
