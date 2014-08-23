@@ -1,9 +1,7 @@
 from __future__ import division, print_function, unicode_literals
 
-# This code is so you can run the samples without installing the package
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+import Blocks
+
 
 # stdlib
 import copy
@@ -38,6 +36,7 @@ class GameModel( pyglet.event.EventDispatcher ):
 
         status.reset()
 
+        self.player = Block()
 
         # phony level
         status.level = levels.levels[0]
@@ -118,29 +117,38 @@ class GameModel( pyglet.event.EventDispatcher ):
 
     def block_right( self ):
         '''moves right the block 1 square'''
-        self.block.backup()
-        self.block.pos.x += 1
+        self.player.backup()
+        self.player.pos.x += 1
         if not self.is_valid_block():
-            self.block.restore()
+            self.player.restore()
         else:
             self.dispatch_event("on_move_block")
 
     def block_left( self ):
         '''moves left the block 1 square'''
-        self.block.backup()
-        self.block.pos.x -= 1
+        self.player.backup()
+        self.player.pos.x -= 1
         if not self.is_valid_block():
-            self.block.restore()
+            self.player.restore()
         else:
             self.dispatch_event("on_move_block")
 
     def block_down( self, sound=True ):
         '''moves down the block 1 square'''
-        self.block.backup()
-        self.block.pos.y -= 1
+        self.player.backup()
+        self.player.pos.y -= 1
         if not self.is_valid_block():
-            self.block.restore()
-            self.next_block()
+            self.player.restore()
+        else:
+            if sound:
+                self.dispatch_event("on_move_block")
+
+    def block_up( self, sound=True ):
+        '''moves down the block 1 square'''
+        self.player.backup()
+        self.player.pos.y -= 1
+        if not self.is_valid_block():
+            self.player.restore()
         else:
             if sound:
                 self.dispatch_event("on_move_block")
@@ -157,18 +165,9 @@ class Block( object ):
     def __init__(self):
         super( Block, self).__init__()
 
-        self.pos = Point2( COLUMNS//2-1, ROWS )
+        self.pos = Point2( GRIDX//2-1, GRIDY )
         self.rot = 0
 
-        for x in range( len(self._shape) ):
-            for y in range( len( self._shape[x]) ):
-                if self._shape[x][y]:
-                    r = random.random()
-                    if r < status.level.prob:
-                        color = random.choice( status.level.blocks )
-                    else:
-                        color = self.color
-                    self._shape[x][y] = color
 
     def draw( self ):
         '''draw the block'''
@@ -176,7 +175,7 @@ class Block( object ):
             for j in range(self.x):
                 c = self.get(i,j)
                 if c:
-                    Block.images[c].blit((i + self.pos.x) * BLOCK_DIMENSION, (j + self.pos.y) * BLOCK_DIMENSION)
+                    Blocks.Registry.images[c].blit((i + self.pos.x) * BLOCK_DIMENSION, (j + self.pos.y) * BLOCK_DIMENSION)
 
     def backup( self ):
         '''saves a copy of the block'''
@@ -187,19 +186,6 @@ class Block( object ):
         '''restore a copy of the block'''
         self.pos = self.save_pos
         self.rot = self.save_rot
-
-    def get(self,x,y):
-        '''get position x,y of the block'''
-        if self.rot == 0:
-            i,j = x,y
-        elif self.rot == 1:
-            i,j = y,(self.x -x -1 )
-        elif self.rot == 2:
-            i,j = (self.x - x -1), (self.x -y -1)
-        elif self.rot == 3:
-            i,j = (self.x - y -1 ), x
-
-        return self._shape[i][j]
 
 
 
