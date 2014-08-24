@@ -64,14 +64,11 @@ class GameView( Layer ):
 
     def on_move_block(self ):
         soundex.play('move.mp3')
+        self.parent.add( gameover.GameOver(win=False), z=10 )
         return True
 
     def on_player_move(self):
         soundex.play('move.mp3')
-        return True
-
-    def on_drop_block(self ):
-        soundex.play('drop.mp3')
         return True
 
     def on_level_complete( self ):

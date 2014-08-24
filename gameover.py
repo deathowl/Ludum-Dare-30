@@ -23,10 +23,10 @@ class GameOver( ColorLayer ):
         w,h = director.get_window_size()
 
         if win:
-            soundex.play('oh_yeah.mp3')
+            soundex.play('win.mp3')
             msg = 'YOU WIN'
         else:
-            soundex.play('no.mp3')
+            soundex.play('fail.mp3')
             msg = 'GAME OVER'
 
         label = Label(msg,

@@ -91,7 +91,7 @@ def load(name, streaming=False):
         return
 
     if name not in sounds:
-        sounds[name] = pyglet.resource.media(name, streaming=streaming)
+        sounds[name] = pyglet.resource.media(name, streaming=False)
 
     return sounds[name]
 

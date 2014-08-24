@@ -53,7 +53,7 @@ class ScoreLayer( Layer ):
                 anchor_x='left',
                 anchor_y='bottom')
 
-        self.lvl.position=(450,0)
+        self.lvl.position=(650,0)
         self.add( self.lvl)
 
     def draw(self):

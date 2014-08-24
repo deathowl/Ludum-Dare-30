@@ -44,21 +44,17 @@ class GameCtrl( Layer ):
         if self.used_key:
             return False
         #HANDLE KEYBOARD INPUT
-        if k in (key.LEFT, key.RIGHT, key.DOWN, key.UP, key.SPACE):
-            if k == key.LEFT:
+        if k in (key.LEFT, key.RIGHT, key.DOWN, key.UP, key.SPACE, key.W, key.A, key.S, key.D):
+            if k in (key.LEFT, key.A):
                 self.model.block_left()
                 #MOVE LEFT
-            elif k == key.RIGHT:
+            elif k in (key.RIGHT, key.D):
                 pass
                 self.model.block_right()
-            elif k == key.DOWN:
+            elif k in (key.DOWN, key.S):
                 self.model.block_down()
-            elif k == key.UP:
+            elif k in (key.UP, key.W):
                 self.model.block_up()
-            elif k == key.SPACE:
-                # let the player move the block after it was dropped
-                self.elapsed = 0
-                self.model.block_drop()
             self.used_key = True
             return True
         return False
@@ -78,7 +74,7 @@ class GameCtrl( Layer ):
             elif motion == key.MOTION_RIGHT:
                 self.model.block_right()
             elif motion == key.MOTION_UP:
-                self.model.block_down()
+                self.model.block_up()
 
             self.used_key = True
             return True

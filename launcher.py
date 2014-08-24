@@ -25,13 +25,13 @@ class OptionsMenu( Menu ):
         # you can override the font that will be used for the title and the items
         self.font_title['font_name'] = 'Edit Undo Line BRK'
         self.font_title['font_size'] = 72
-        self.font_title['color'] = (204,164,164,255)
+        self.font_title['color'] = (255,255,255,255)
 
         self.font_item['font_name'] = 'Edit Undo Line BRK',
-        self.font_item['color'] = (32,16,32,255)
+        self.font_item['color'] = (100,100,100,255)
         self.font_item['font_size'] = 32
         self.font_item_selected['font_name'] = 'Edit Undo Line BRK'
-        self.font_item_selected['color'] = (32,16,32,255)
+        self.font_item_selected['color'] = (203,203,203,255)
         self.font_item_selected['font_size'] = 46
 
         # you can also override the font size and the colors. see menu.py for
@@ -94,10 +94,10 @@ class MainMenu( Menu ):
         self.font_title['color'] = (204,164,164,255)
 
         self.font_item['font_name'] = 'Edit Undo Line BRK',
-        self.font_item['color'] = (32,16,32,255)
+        self.font_item['color'] = (100,100,100,255)
         self.font_item['font_size'] = 32
         self.font_item_selected['font_name'] = 'Edit Undo Line BRK'
-        self.font_item_selected['color'] = (32,16,32,255)
+        self.font_item_selected['color'] = (203,203,203,255)
         self.font_item_selected['font_size'] = 46
 
 
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     pyglet.resource.reindex()
     font.add_directory('data')
 
-    director.init(resizable=True, width=600, height=720 )
+    director.init(resizable=True, width=800, height=800 )
     scene = Scene()
     scene.add(MultiplexLayer(MainMenu(), OptionsMenu(),), z=1)
     scene.add(BackgroundLayer(), z=0 )
